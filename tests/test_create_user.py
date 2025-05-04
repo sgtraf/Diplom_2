@@ -22,16 +22,21 @@ class TestRegistration:
 
     def test_second_user_registration_with_same_data(self,generate_registration_data):
         with allure.step("Создаем пользователя"):
-            #print(generate_registration_data)
             LoginMethods.register_new_user_and_return_login_password(generate_registration_data)
-            #print(body.json())
         with allure.step("Создаем повторно пользователя с теми же данными"):
-            #print(generate_registration_data)
             body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data)
-            #print(body.json())
         with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
             assert body.status_code == 403
             assert body.json()["message"] == MessageData.MESSEGE_TEXT_403
             assert body.json()["success"] == False
 
+    def test_registration_without_email(self,generate_registration_data_without_delete_method):
+        generate_registration_data_without_delete_method["email"] = ''
+        with allure.step("Создаем пользователя"):
+            body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data_without_delete_method)
+
+        with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
+            assert body.status_code == 403
+            assert body.json()["message"] == MessageData.MESSEGE_TEXT_403_WITHOUT_ONE
+            assert body.json()["success"] == False
 
