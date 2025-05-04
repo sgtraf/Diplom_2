@@ -1,0 +1,22 @@
+from faker import Faker
+
+
+class GenerateBody:
+    @staticmethod
+    def generate_user_data():
+        fake = Faker(locale='Ru')
+
+        email = fake.email(domain='mail.ru')
+        name = fake.first_name()
+        password = fake.password()
+
+        # собираем тело запроса
+        payload = {
+                "email": email,
+                "password": password,
+                "name": name
+                }
+
+        return payload
+
+print(GenerateBody.generate_user_data())
