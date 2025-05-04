@@ -5,7 +5,7 @@ import json
 class GenerateBody:
     @staticmethod
     def generate_user_data():
-        fake = Faker(locale='Ru')
+        fake = Faker()
 
         email = fake.email(domain='mail.ru')
         name = fake.first_name()

@@ -1,3 +1,5 @@
+import json
+
 import allure
 import requests
 import urls
@@ -12,7 +14,7 @@ class LoginMethods:
 
         # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
         with allure.step("Создаем запрос создания пользователя"):
-            response = requests.post(f'{urls.Url.MAIN_URL}{urls.Url.CREATE_AND_REGISTRATION_USER_URL}', json=body)
+            response = requests.post(f'{urls.Url.MAIN_URL}{urls.Url.CREATE_AND_REGISTRATION_USER_URL}', data=body)
 
         return response
 
