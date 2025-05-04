@@ -1,4 +1,5 @@
 from faker import Faker
+import json
 
 
 class GenerateBody:
@@ -19,4 +20,4 @@ class GenerateBody:
 
         return payload
 
-print(GenerateBody.generate_user_data())
+print(json.dumps(GenerateBody.generate_user_data()))
