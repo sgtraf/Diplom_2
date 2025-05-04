@@ -12,6 +12,26 @@ class TestRegistration:
             #print(generate_registration_data)
             body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data)
             #print(body.json())
-        with allure.step("Проверяем, что код ответа и тело соответствует документации"):
-            assert body.status_code == 200 and body.json()["accessToken"] != 0
+        with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
+            assert body.status_code == 200
+            assert body.json()["accessToken"] != 0
             assert body.json()["refreshToken"] != 0
+            assert body.json()["success"] == True
+            assert body.json()["user"]["email"] == generate_registration_data['email']
+            assert body.json()["user"]["name"] == generate_registration_data['name']
+
+    def test_second_user_registration_with_same_data(self,generate_registration_data):
+        with allure.step("Создаем пользователя"):
+            #print(generate_registration_data)
+            LoginMethods.register_new_user_and_return_login_password(generate_registration_data)
+            #print(body.json())
+        with allure.step("Создаем повторно пользователя с теми же данными"):
+            #print(generate_registration_data)
+            body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data)
+            #print(body.json())
+        with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
+            assert body.status_code == 403
+            assert body.json()["message"] == MessageData.MESSEGE_TEXT_403
+            assert body.json()["success"] == False
+
+
