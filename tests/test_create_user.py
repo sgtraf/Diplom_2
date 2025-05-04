@@ -32,7 +32,7 @@ class TestRegistration:
 
     def test_registration_without_email(self,generate_registration_data_without_delete_method):
         generate_registration_data_without_delete_method["email"] = ''
-        with allure.step("Создаем пользователя"):
+        with allure.step("Пытаемся создать пользователя без почты"):
             body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data_without_delete_method)
 
         with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
@@ -40,3 +40,22 @@ class TestRegistration:
             assert body.json()["message"] == MessageData.MESSEGE_TEXT_403_WITHOUT_ONE
             assert body.json()["success"] == False
 
+    def test_registration_without_password(self,generate_registration_data_without_delete_method):
+        generate_registration_data_without_delete_method["password"] = ''
+        with allure.step("Пытаемся создать пользователя без пароля"):
+            body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data_without_delete_method)
+
+        with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
+            assert body.status_code == 403
+            assert body.json()["message"] == MessageData.MESSEGE_TEXT_403_WITHOUT_ONE
+            assert body.json()["success"] == False
+
+    def test_registration_without_name(self,generate_registration_data_without_delete_method):
+        generate_registration_data_without_delete_method["name"] = ''
+        with allure.step("Пытаемся создать пользователя без имени"):
+            body = LoginMethods.register_new_user_and_return_login_password(generate_registration_data_without_delete_method)
+
+        with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
+            assert body.status_code == 403
+            assert body.json()["message"] == MessageData.MESSEGE_TEXT_403_WITHOUT_ONE
+            assert body.json()["success"] == False
