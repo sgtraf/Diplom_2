@@ -1,10 +1,10 @@
 import allure
 import pytest
+import data
 from data import MessageData
 from methods.login_method import LoginMethods
 from methods.change_method import ChangeMethods
 from methods.generators import GenerateBody
-
 
 
 class TestChangeUserData:
@@ -41,9 +41,6 @@ class TestChangeUserData:
                         'проверяем можно ли изменить поля сведений для пользователя'
                         'проверяем код и тело ответа. Затем удаляем пользователя')
     @pytest.mark.parametrize('user_data_field', ['email', 'password', 'name'])
-    # В этом методе есть баг, повторно использовать email, который уже был когда-то использован при изменении
-    # данных пользователя невозможно, даже если пользователь был удален. Необходимо каждый раз использовать
-    # уникальные почтовые адреса
     def test_change_user_data_without_authorization(self,generate_registration_data_for_change_user_data, user_data_field):
         # здесь мы подготавливаем тело запроса для изменения полей пользователя
         new_user_data = GenerateBody.generate_lonely_user_data()[user_data_field]
@@ -54,6 +51,4 @@ class TestChangeUserData:
         with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
             assert response_new_data.status_code == 401
             assert response_new_data.json()["success"] == False
-            assert response_new_data.json()["message"]== "You should be authorised"
-
-
+            assert response_new_data.json()["message"]== data.MessageData.MESSEGE_NOT_AUTHORISED_401
