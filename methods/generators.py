@@ -24,7 +24,7 @@ class GenerateBody:
     def generate_lonely_user_data():
         fake = Faker()
 
-        email = fake.email()
+        email = fake.email(domain='efefefefefefefefefefeggg.tu')
         name = fake.first_name()
         password = fake.password()
 
