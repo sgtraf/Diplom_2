@@ -1,6 +1,5 @@
 import allure
 import pytest
-import data
 from data import MessageData
 from methods.login_method import LoginMethods
 from methods.change_method import ChangeMethods
@@ -51,4 +50,4 @@ class TestChangeUserData:
         with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
             assert response_new_data.status_code == 401
             assert response_new_data.json()["success"] == False
-            assert response_new_data.json()["message"]== data.MessageData.MESSEGE_NOT_AUTHORISED_401
+            assert response_new_data.json()["message"]== MessageData.MESSEGE_NOT_AUTHORISED_401

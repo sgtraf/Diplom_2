@@ -6,6 +6,6 @@ class Url:
     GET_USER_INFO_URL = '/api/auth/user' #GET
     UPDATE_USER_INFO_URL = '/api/auth/user' #PATCH
     DELETE_USER_URL = '/api/auth/user'  # DELETE
-    CREATE_ORDERS_URL = '/api/orders' #PUT
+    CREATE_ORDERS_URL = '/api/orders' #POST
     GET_ORDER_URL = '/api/orders' #GET
 
