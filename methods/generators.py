@@ -40,5 +40,3 @@ class GenerateBody:
                 }
 
         return {'email': payload_email, 'password': payload_password, 'name': payload_name}
-
-print(json.dumps(GenerateBody.generate_user_data()))

@@ -20,15 +20,10 @@ class TestChangeUserData:
         with allure.step("Логин под пользователем"):
             body = LoginMethods.login_in_system(generate_registration_data_for_change_user_data['email'],
                                                 generate_registration_data_for_change_user_data['password'])
-        #print(body.json())
         #здесь мы подготавливаем тело запроса для изменения полей пользователя
         new_user_data = GenerateBody.generate_lonely_user_data()[user_data_field]
-        #print(new_user_data)
-        #print(generate_registration_data_for_change_user_data)
         with allure.step("Меняем данные пользователя"):
             response_new_data = ChangeMethods.change_user_data_and_return_new_data(new_user_data, body.json()['accessToken'])
-        #print(response_new_data.json())
-        #print(ChangeMethods.get_user_data(body.json()["accessToken"]).json())
         with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
             assert response_new_data.status_code == 200
             assert response_new_data.json()["success"] == True
