@@ -43,4 +43,3 @@ class TestGetOrder:
             assert response_new_data.status_code == 401
             assert response_new_data.json()["success"] == False
             assert response_new_data.json()["message"] == MessageData.MESSEGE_NOT_AUTHORISED_401
-
