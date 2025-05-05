@@ -5,3 +5,4 @@ class MessageData:
     MESSEGE_INC_LOGIN_401 = "email or password are incorrect"
 
     MESSEGE_NOT_FIND_LOGIN = 'Учетная запись не найдена'
+
