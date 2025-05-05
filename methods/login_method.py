@@ -1,5 +1,3 @@
-import json
-
 import allure
 import requests
 import urls
