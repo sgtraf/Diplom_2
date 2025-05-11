@@ -1,6 +1,7 @@
 import allure
 from data import MessageData
 from methods.login_method import LoginMethods
+from methods.generators import GenerateBody
 
 
 class TestUserLogin:
@@ -20,10 +21,11 @@ class TestUserLogin:
             assert body.json()["user"]["email"] == generate_registration_data['email']
             assert body.json()["user"]["name"] == generate_registration_data['name']
 
-    def test_user_login_with_wrong_data(self, generate_registration_data_without_delete_method):
+    def test_user_login_with_wrong_data(self):
+        test_body = GenerateBody.generate_user_data()
         with allure.step("Логин под несуществующим пользователем"):
-            body = LoginMethods.login_in_system(generate_registration_data_without_delete_method['email'],
-                                                generate_registration_data_without_delete_method['password'])
+            body = LoginMethods.login_in_system(test_body['email'],
+                                                test_body['password'])
         with (allure.step("Проверяем, что код ответа и тело соответствует документации")):
             assert body.status_code == 401
             assert body.json()["success"] == False

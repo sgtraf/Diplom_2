@@ -13,11 +13,6 @@ def generate_registration_data():
         LoginMethods.delete_login(LoginMethods.login_in_system(test_body['email'], test_body['password']).
                                   json()["accessToken"])
 
-#Создание данных для регистрации.
-@pytest.fixture
-def generate_registration_data_without_delete_method():
-    test_body = GenerateBody.generate_user_data()
-    return test_body
 
 #Создание данных для изменения данных пользователя.
 @pytest.fixture
